@@ -1,11 +1,12 @@
 {
-  "name": "Moska-Api",
+  "name": "moska-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index",
-    "webpack": "webpack --config webpack.config.ts"
+    "webpack": "webpack --config webpack.config.ts",
+    "debug": "node --nolazy --inspect-brk=7000 dist/index"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +15,18 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "helmet": "^3.21.2"
+    "express-jwt": "^5.3.1",
+    "firebase": "^7.8.2",
+    "firebase-admin": "^8.9.2",
+    "helmet": "^3.21.2",
+    "jwks-rsa": "^1.6.2",
+    "ts-money": "^0.4.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.2",
+    "@types/express-jwt": "0.0.42",
     "@types/helmet": "0.0.45",
     "@types/node": "^13.7.1",
     "ts-loader": "^6.2.1",
