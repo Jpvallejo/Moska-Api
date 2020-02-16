@@ -4,8 +4,7 @@ import { Expenses } from "./expenses.interface";
 
 
 export class ExpensesDatabase {
-    
-    
+
     private db = firebase.database();
     private expensesRef = this.db.ref("server/saving-data/expenses");
     private expenses! : Expenses;

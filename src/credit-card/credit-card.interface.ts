@@ -2,11 +2,11 @@ import { Money } from "ts-money";
 import { MoskaAccount } from "../account/moskaAccount.interface";
 
 export interface CreditCard {
-    id: number;
+    id: string;
     user: string;
     hasLimit: boolean;
     limit? : Money;
-    account: MoskaAccount;
+    accountId: string;
     closingDay: number;
     paymentDay: number;
 }
