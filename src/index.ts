@@ -16,10 +16,12 @@ firebase.initializeApp({
     }),
     databaseURL: 'https://moska-fbb04.firebaseio.com/'
 })
-import { itemsRouter } from "./items/items.router";
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/notFound.middleware";
 import { expensesRouter } from "./transactions/expense/expenses.router";
+import { incomesRouter } from "./transactions/income/incomes.router";
+import { ccSpendingsRouter } from "./credit-card/cc-spending/spendings.router";
+import { accountsRouter } from "./account/moskaAccount.router";
 
 dotenv.config();
 
@@ -41,8 +43,10 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/items", itemsRouter);
-app.use("/expenses", expensesRouter)
+app.use("/expenses", expensesRouter);
+app.use("/incomes", incomesRouter);
+app.use("/ccSpendings", ccSpendingsRouter);
+app.use("/accounts", accountsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

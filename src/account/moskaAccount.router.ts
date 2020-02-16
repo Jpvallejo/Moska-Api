@@ -47,7 +47,7 @@ accountsRouter.get("/:id", async (req: Request, res: Response) => {
 
 // // GET :userId
 
-accountsRouter.get("/:userId", async (req: Request, res: Response) => {
+accountsRouter.get("/byUser/:userId", async (req: Request, res: Response) => {
     try {
         const accounts: MoskaAccounts = await accountsService.getByUser(req.params.userId);
 
