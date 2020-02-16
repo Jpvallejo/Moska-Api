@@ -7,3 +7,7 @@ export interface MoskaAccount {
     currency: Currency;
     userId: string;
 }
+
+export interface MoskaAccounts {
+    [key:string]: MoskaAccount;
+}
