@@ -1,4 +1,4 @@
-import firebase from "firebase-admin";
+import firebase from "../../services/firebase-service";
 import { CreditCardSpendings } from "./cc-spendings.interface";
 import { CreditCardSpending } from "./cc-spending.interface";
 

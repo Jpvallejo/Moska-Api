@@ -1,4 +1,4 @@
-import firebase from "firebase-admin";
+import firebase from "../../services/firebase-service";
 import { Expense } from "./expense.interface";
 import { Expenses } from "./expenses.interface";
 

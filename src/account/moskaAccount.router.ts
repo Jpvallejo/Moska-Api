@@ -5,6 +5,7 @@
 import express, { Request, Response } from "express";
 import { AccountService } from "./moskaAccount.service";
 import { MoskaAccount, MoskaAccounts } from "./moskaAccount.interface";
+import {checkIfAuthenticated} from '../middleware/auth.middleware';
 
 /**
  * Router Definition

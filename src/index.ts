@@ -6,16 +6,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import firebase from "firebase-admin";
-import * as serviceAccount from "../serviceAccount.json";
-firebase.initializeApp({
-    credential: firebase.credential.cert({
-        privateKey: serviceAccount.private_key,
-        projectId: serviceAccount.project_id,
-        clientEmail: serviceAccount.client_email
-    }),
-    databaseURL: 'https://moska-fbb04.firebaseio.com/'
-})
+import firebase from "./services/firebase-service"
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/notFound.middleware";
 import { expensesRouter } from "./transactions/expense/expenses.router";

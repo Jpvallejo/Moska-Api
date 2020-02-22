@@ -1,4 +1,4 @@
-import firebase from "firebase-admin";
+import firebase from "../../services/firebase-service";
 import { Income } from "./income.interface";
 import { Incomes } from "./incomes.interface";
 
