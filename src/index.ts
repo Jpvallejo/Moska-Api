@@ -6,13 +6,14 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import firebase from "./services/firebase-service"
+import { requireJwtMiddleware } from "./middleware/auth.middleware";
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/notFound.middleware";
 import { expensesRouter } from "./transactions/expense/expenses.router";
 import { incomesRouter } from "./transactions/income/incomes.router";
 import { ccSpendingsRouter } from "./credit-card/cc-spending/spendings.router";
 import { accountsRouter } from "./account/moskaAccount.router";
+import { authRouter } from "./auth/auth.router";
 
 dotenv.config();
 
@@ -34,10 +35,14 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use("/auth", authRouter);
+
+app.use(requireJwtMiddleware);
 app.use("/expenses", expensesRouter);
 app.use("/incomes", incomesRouter);
 app.use("/ccSpendings", ccSpendingsRouter);
 app.use("/accounts", accountsRouter);
+
 
 app.use(errorHandler);
 app.use(notFoundHandler);
@@ -48,7 +53,7 @@ app.use(notFoundHandler);
 
 const server = app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
-  });
+});
 
 /**
  * Webpack HMR Activation

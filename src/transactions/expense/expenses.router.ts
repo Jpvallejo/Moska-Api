@@ -6,7 +6,6 @@ import express, { Request, Response } from "express";
 import { Expenses } from "./expenses.interface";
 import { Expense } from "./expense.interface";
 import { ExpensesService } from "./expenses.service";
-import { checkIfAuthenticated } from "../../middleware/auth.middleware";
 
 /**
  * Router Definition
@@ -24,7 +23,7 @@ const expensesService = new ExpensesService();
 
 // GET expenses/
 
-expensesRouter.get("/", checkIfAuthenticated, async (req: Request, res: Response) => {
+expensesRouter.get("/", async (req: Request, res: Response) => {
     try {
         const expenses: Expenses = await expensesService.getAll();
 
