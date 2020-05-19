@@ -26,7 +26,12 @@ export class CreditCardSpendingsDatabase {
         // TODO
     }
     public async create(spending: CreditCardSpending): Promise<string>{
-        return this.spendingsRef.push(spending).toString();
+        return this.spendingsRef.push({
+            amount: spending.amount,
+            creditCardId: spending.creditCardId,
+            description: spending.description,
+            date: spending.date.toLocaleDateString()
+        }).toString();
     }
 
     public async update(id:string, spending:CreditCardSpending): Promise<void> {

@@ -11,13 +11,14 @@ export class CreditCardSpendingsService {
         return this.db.create(record);
     }
 
-    public async createWithPayments(record: CreditCardSpending, payments: number){
-        const spending = record;
-        let amount: Money;
-        amount = record.amount;
-        amount = amount.divide(payments);
+    public async createWithPayments(record: any, payments: number) {
+        const spending = CreditCardSpending.fromApiResponse(record);
+        const initialDate = spending.date;
+        console.log(spending.date.getMonth());
+        const amount = spending.amount.divide(payments);
         for(let i = 0; i < payments; i++){
-            spending.date = addMonth(record.date, record.date.getMonth() + i);
+            spending.date = addMonth(initialDate, i);
+            console.log(spending.date);
             spending.amount = amount;
             this.db.create(spending);
         }

@@ -77,9 +77,8 @@ ccSpendingsRouter.post("/", async (req: Request, res: Response) => {
 ccSpendingsRouter.post("/payments", async (req: Request, res: Response) => {
   try {
     const payments: number = req.body.payments;
-    const expense: CreditCardSpending = req.body.spending;
 
-    await ccSpendingsService.createWithPayments(expense,payments).then(spendings => {
+    await ccSpendingsService.createWithPayments(req.body.spending,payments).then(spendings => {
       res.sendStatus(201).send(spendings);
     });
   } catch (e) {
