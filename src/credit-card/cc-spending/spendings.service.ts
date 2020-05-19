@@ -2,6 +2,7 @@ import { CreditCardSpending } from "./cc-spending.interface";
 import { CreditCardSpendings } from "./cc-spendings.interface";
 import { CreditCardSpendingsDatabase } from "./spendings.database";
 import { addMonth } from "ts-date";
+import { Money } from "ts-money";
 
 export class CreditCardSpendingsService {
     private db = new CreditCardSpendingsDatabase();
@@ -12,7 +13,8 @@ export class CreditCardSpendingsService {
 
     public async createWithPayments(record: CreditCardSpending, payments: number){
         const spending = record;
-        const amount = record.amount.divide(payments);
+        let amount: Money;
+        amount = record.amount.divide(payments);
         for(let i = 0; i < payments; i++){
             spending.date = addMonth(record.date, record.date.getMonth() + i);
             spending.amount = amount;
