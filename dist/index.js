@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "56e453660cbb80e055bb";
+/******/ 	var hotCurrentHash = "715bd3df3497da637ba3";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -899,10 +899,9 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
   !*** ./src/credit-card/cc-spending/cc-spending.interface.ts ***!
   \**************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar ts_money_1 = __webpack_require__(/*! ts-money */ \"ts-money\");\nvar CreditCardSpending = /** @class */ (function () {\n    function CreditCardSpending(id, amount, description, date, creditCardId) {\n        this.amount = amount;\n        this.description = description;\n        this.date = date;\n        this.creditCardId = creditCardId;\n    }\n    CreditCardSpending.fromApiResponse = function (response) {\n        var id = response.id;\n        var amount = new ts_money_1.Money(response.amount, response.currency);\n        var description = response.description;\n        var date = new Date(response.date);\n        var creditCardId = response.creditCardId;\n        return new CreditCardSpending(id, amount, description, date, creditCardId);\n    };\n    return CreditCardSpending;\n}());\nexports.CreditCardSpending = CreditCardSpending;\n\n\n//# sourceURL=webpack:///./src/credit-card/cc-spending/cc-spending.interface.ts?");
+eval("throw new Error(\"Module build failed (from ./node_modules/ts-loader/index.js):\\nError: ENOENT: no such file or directory, open '/Users/jvallejo/Documents/repos/jp/Moska-Api-2/src/credit-card/cc-spending/cc-spending.interface.ts'\");\n\n//# sourceURL=webpack:///./src/credit-card/cc-spending/cc-spending.interface.ts?");
 
 /***/ }),
 
@@ -1159,17 +1158,6 @@ eval("module.exports = require(\"jsonwebtoken\");\n\n//# sourceURL=webpack:///ex
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"ts-date\");\n\n//# sourceURL=webpack:///external_%22ts-date%22?");
-
-/***/ }),
-
-/***/ "ts-money":
-/*!***************************!*\
-  !*** external "ts-money" ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"ts-money\");\n\n//# sourceURL=webpack:///external_%22ts-money%22?");
 
 /***/ }),
 
