@@ -14,7 +14,8 @@ export class CreditCardSpendingsService {
     public async createWithPayments(record: CreditCardSpending, payments: number){
         const spending = record;
         let amount: Money;
-        amount = record.amount.divide(payments);
+        amount = record.amount;
+        amount = amount.divide(payments);
         for(let i = 0; i < payments; i++){
             spending.date = addMonth(record.date, record.date.getMonth() + i);
             spending.amount = amount;
