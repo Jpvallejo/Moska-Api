@@ -1,4 +1,4 @@
-import { CreditCardSpending } from "./cc-spending.interface";
+import { CreditCardSpending } from "./cc-spending.model";
 import { CreditCardSpendings } from "./cc-spendings.interface";
 import { CreditCardSpendingsDatabase } from "./spendings.database";
 import { addMonth } from "ts-date";

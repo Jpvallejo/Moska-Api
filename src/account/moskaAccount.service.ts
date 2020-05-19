@@ -1,5 +1,5 @@
-import { MoskaAccount, MoskaAccounts } from "./moskaAccount.interface";
 import { AccountDatabase } from "./moskaAccount.database";
+import { MoskaAccount, MoskaAccounts } from "./moskaAccount.model";
 
 export class AccountService {
     private db = new AccountDatabase();

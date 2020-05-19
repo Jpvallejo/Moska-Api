@@ -4,7 +4,9 @@
 
 import express, { Request, Response } from "express";
 import { AccountService } from "./moskaAccount.service";
-import { MoskaAccount, MoskaAccounts } from "./moskaAccount.interface";
+import { MoskaAccounts, MoskaAccount } from "./moskaAccount.model";
+import { AuthService } from "../auth/services/auth.service";
+
 
 /**
  * Router Definition
@@ -15,6 +17,7 @@ export const accountsRouter = express.Router();
  *  Service Definition
  */
 const accountsService = new AccountService();
+const authService = new AuthService();
 
 /**
  * Controller Definitions
@@ -61,7 +64,10 @@ accountsRouter.get("/byUser/:userId", async (req: Request, res: Response) => {
 
 accountsRouter.post("/", async (req: Request, res: Response) => {
     try {
-        const account: MoskaAccount = req.body;
+        const authHeader = req.header('X-JWT-Token');
+        const authToken: string =  authHeader ? authHeader : '' ;
+        const userId = await authService.getUserIdFromToken(authToken);
+        const account: MoskaAccount = MoskaAccount.fromApiRequest(req.body, userId);
 
         await accountsService.create(account).then( (id) => {
             res.sendStatus(201).send(id);

@@ -21,4 +21,14 @@ export class UsersService {
             return this.db.getById(userId);
         }
     }
+
+    public async getUserId(user: PartialUser): Promise<string> {
+        return this.db.getUserId(user).then((userId) => {
+            if(!userId) {
+                return this.create(user);
+            } else {
+                return userId;
+            }
+        });
+    }
 }

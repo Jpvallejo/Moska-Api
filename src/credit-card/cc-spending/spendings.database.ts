@@ -1,6 +1,6 @@
 import firebase from "../../services/firebase-service";
 import { CreditCardSpendings } from "./cc-spendings.interface";
-import { CreditCardSpending } from "./cc-spending.interface";
+import { CreditCardSpending } from "./cc-spending.model";
 
 export class CreditCardSpendingsDatabase {
 
@@ -11,7 +11,7 @@ export class CreditCardSpendingsDatabase {
     constructor(){
         this.spendingsRef.on('value', (snap) => {
             this.spendings = snap && snap.val(); // Keep the local user object synced with the Firebase userRef 
-           });
+        });
     }
 
     public async get(): Promise<CreditCardSpendings> {

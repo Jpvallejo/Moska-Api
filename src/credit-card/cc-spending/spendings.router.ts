@@ -4,7 +4,7 @@
 
 import express, { Request, Response } from "express";
 import { CreditCardSpendings } from "./cc-spendings.interface";
-import { CreditCardSpending } from "./cc-spending.interface";
+import { CreditCardSpending } from "./cc-spending.model";
 import { CreditCardSpendingsService } from "./spendings.service";
 
 /**

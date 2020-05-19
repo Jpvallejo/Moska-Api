@@ -1,5 +1,5 @@
 import firebase from "firebase-admin";
-import { MoskaAccounts, MoskaAccount } from "./moskaAccount.interface";
+import { MoskaAccounts, MoskaAccount } from "./moskaAccount.model";
 
 export class AccountDatabase {
     private db = firebase.database();
@@ -9,7 +9,7 @@ export class AccountDatabase {
     constructor(){
         this.accountsRef.on('value', (snap) => {
             this.accounts = snap && snap.val(); // Keep the local user object synced with the Firebase userRef 
-           });
+        });
     }
 
     public async get(): Promise<MoskaAccounts> {
