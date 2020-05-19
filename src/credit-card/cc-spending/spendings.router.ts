@@ -24,26 +24,27 @@ const ccSpendingsService = new CreditCardSpendingsService();
 // GET expenses/
 
 ccSpendingsRouter.get("/", async (req: Request, res: Response) => {
-    try {
-        const expenses: CreditCardSpendings = await ccSpendingsService.getAll();
+  try {
+    const expenses: CreditCardSpendings = await ccSpendingsService.getAll();
 
-        res.status(200).send(expenses);
-    } catch (e) {
-        res.status(404).send(e.message);
-    }
+    res.status(200).send(expenses);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
 });
 
 // // GET expenses/:id
 
 ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const expense: CreditCardSpending = await ccSpendingsService.get(
+      req.params.id
+    );
 
-    try {
-        const expense: CreditCardSpending = await ccSpendingsService.get(req.params.id);
-
-        res.status(200).send(expense);
-    } catch (e) {
-        res.status(404).send(e.message);
-    }
+    res.status(200).send(expense);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
 });
 
 // // GET expenses/:accountId
@@ -62,40 +63,52 @@ ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
 // POST expenses/
 
 ccSpendingsRouter.post("/", async (req: Request, res: Response) => {
-    try {
-        const expense: CreditCardSpending = req.body;
+  try {
+    const expense: CreditCardSpending = req.body;
 
-        await ccSpendingsService.create(expense).then( (id) => {
-            res.sendStatus(201).send(id);
-        });
+    await ccSpendingsService.create(expense).then(id => {
+      res.sendStatus(201).send(id);
+    });
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
 
-    } catch (e) {
-        res.status(404).send(e.message);
-    }
+ccSpendingsRouter.post("/payments", async (req: Request, res: Response) => {
+  try {
+    const payments: number = req.body.payments;
+    const expense: CreditCardSpending = req.body.spending;
+
+    await ccSpendingsService.createWithPayments(expense,payments).then(spendings => {
+      res.sendStatus(201).send(spendings);
+    });
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
 });
 
 // PUT expenses/
 
 ccSpendingsRouter.put("/:id", async (req: Request, res: Response) => {
-    try {
-        const expense: CreditCardSpending = req.body.expense;
+  try {
+    const expense: CreditCardSpending = req.body.expense;
 
-        await ccSpendingsService.update(req.params.id,expense);
+    await ccSpendingsService.update(req.params.id, expense);
 
-        res.sendStatus(200);
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 
 // DELETE expenses/:id
 
 ccSpendingsRouter.delete("/:id", async (req: Request, res: Response) => {
-    try {
-        await ccSpendingsService.remove(req.params.id);
+  try {
+    await ccSpendingsService.remove(req.params.id);
 
-        res.sendStatus(200);
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
