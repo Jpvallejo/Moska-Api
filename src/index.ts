@@ -12,6 +12,7 @@ import { notFoundHandler } from "./middleware/notFound.middleware";
 import { expensesRouter } from "./transactions/expense/expenses.router";
 import { incomesRouter } from "./transactions/income/incomes.router";
 import { ccSpendingsRouter } from "./credit-card/cc-spending/spendings.router";
+import { ccAccountsRouter } from "./credit-card/credit-card.router";
 import { accountsRouter } from "./account/moskaAccount.router";
 import { authRouter } from "./auth/auth.router";
 
@@ -41,6 +42,7 @@ app.use(requireJwtMiddleware);
 app.use("/expenses", expensesRouter);
 app.use("/incomes", incomesRouter);
 app.use("/ccSpendings", ccSpendingsRouter);
+app.use("/creditCards", ccAccountsRouter);
 app.use("/accounts", accountsRouter);
 
 

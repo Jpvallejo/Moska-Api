@@ -1,4 +1,5 @@
 import firebase from "../../services/firebase-service";
+import _ from "lodash";
 import { CreditCardSpendings } from "./cc-spendings.interface";
 import { CreditCardSpending } from "./cc-spending.model";
 
@@ -23,7 +24,9 @@ export class CreditCardSpendingsDatabase {
     }
 
     public async getByAccount(accountId: string) {
-        // TODO
+        return _.filter(this.spendings, (spending) => {
+            return spending.creditCardId === accountId;
+        });
     }
     public async create(spending: CreditCardSpending): Promise<string>{
         return this.spendingsRef.push({
