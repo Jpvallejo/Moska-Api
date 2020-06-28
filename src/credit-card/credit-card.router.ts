@@ -74,7 +74,7 @@ ccAccountsRouter.post("/", async (req: Request, res: Response) => {
         });
 
     } catch (e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 });
 
