@@ -3,4 +3,3 @@ node_modules
 serviceAccount.json
 .vscode
 .now
-*.hot-update.*
