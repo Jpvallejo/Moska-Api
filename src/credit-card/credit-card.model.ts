@@ -28,6 +28,7 @@ export class CreditCard {
         const closingDay = response.closingDay;
         const paymentDay = response.paymentDay;
         const hasLimit = response.hasLimit;
+        const name = response.name;
         if(hasLimit) {
             const limit = new Money(response.limitAmount, response.currency);
             return new CreditCard(userId, name, hasLimit, closingDay, paymentDay, limit);
