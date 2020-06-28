@@ -23,7 +23,7 @@ authRouter.post("/", async (req: Request, res: Response) => {
             ...user,
             dateCreated: Date.now(),
         });
-        res.status(201).json(session);
+        res.status(200).json(session);
     }
     catch (err) {
         console.log(err.message);
