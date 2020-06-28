@@ -27,7 +27,10 @@ const authService = new AuthService();
 
 ccAccountsRouter.get("/", async (req: Request, res: Response) => {
     try {
-        const accounts: CreditCards = await accountsService.getAll();
+        const authHeader = req.header('X-JWT-Token');
+        const authToken: string =  authHeader ? authHeader : '' ;
+        const userId = await authService.getUserIdFromToken(authToken);
+        const accounts: CreditCards = await accountsService.getByUser(userId);
 
         res.status(200).send(accounts);
     } catch (e) {
