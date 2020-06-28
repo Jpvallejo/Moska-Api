@@ -26,7 +26,8 @@ authRouter.post("/", async (req: Request, res: Response) => {
         });
         res.status(201).json(session);
     }
-    catch {
+    catch (err) {
+        console.log(err.message);
         res.status(400);
     }
 });
