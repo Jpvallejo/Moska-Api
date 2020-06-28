@@ -2,8 +2,7 @@ export interface Session {
     id: string; // unique identifier
     dateCreated: number;
     email: string;
-    firstName: string;
-    lastName: string;
+    displayName: string;
     /**
    * Timestamp indicating when the session was created, in Unix milliseconds.
    */

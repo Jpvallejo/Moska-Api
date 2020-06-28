@@ -15,8 +15,7 @@ authRouter.post("/", async (req: Request, res: Response) => {
     try {
         const requestedUser = {
             email: req.body['email'],
-            firstName: req.body['firstName'],
-            lastName: req.body['lastName']
+            displayName: req.body['displayName']
         }
         const user = await authService.getUser(requestedUser);
         const jwtToken = process.env.JWT_SECRET_KEY ? process.env.JWT_SECRET_KEY : '';

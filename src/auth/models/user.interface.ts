@@ -1,12 +1,10 @@
 export interface User {
     id: string,
     email: string,
-    firstName: string,
-    lastName: string
+    displayName: string,
 }
 
 export interface PartialUser {
     email: string;
-    firstName: string;
-    lastName: string;
+    displayName: string;
 }
