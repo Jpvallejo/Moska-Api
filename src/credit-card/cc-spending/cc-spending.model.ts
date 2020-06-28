@@ -1,5 +1,5 @@
 import { Record } from "../../transactions/record.interface";
-import { CreditCard } from "../credit-card.interface";
+import { CreditCard } from "../credit-card.model";
 import { Money } from "ts-money";
 
 export class CreditCardSpending implements Record {
