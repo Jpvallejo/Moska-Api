@@ -65,12 +65,12 @@ ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
 ccSpendingsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const expense: CreditCardSpending = CreditCardSpending.fromApiResponse(req.body);
-
+    console.log(expense);
     await ccSpendingsService.create(expense).then(id => {
-      res.sendStatus(201).send(id);
+      return res.sendStatus(201).send(id);
     });
   } catch (e) {
-    res.status(404).send(e.message);
+    return res.status(404).send(e.message);
   }
 });
 

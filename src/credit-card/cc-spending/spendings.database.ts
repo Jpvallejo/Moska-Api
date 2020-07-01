@@ -29,13 +29,18 @@ export class CreditCardSpendingsDatabase {
         });
     }
     public async create(spending: CreditCardSpending): Promise<string>{
-        console.log(spending.date);
-        return this.spendingsRef.push({
-            amount: spending.amount,
-            creditCardId: spending.creditCardId,
-            description: spending.description,
-            date: spending.date.toLocaleDateString()
-        }).toString();
+        try{
+            const dateString = spending.date.toLocaleDateString();
+            return this.spendingsRef.push({
+                amount: spending.amount,
+                creditCardId: spending.creditCardId,
+                description: spending.description,
+                date: dateString
+            }).toString();
+        } catch(e) {
+            console.log(e);
+            throw e;
+        }
     }
 
     public async update(id:string, spending:CreditCardSpending): Promise<void> {
