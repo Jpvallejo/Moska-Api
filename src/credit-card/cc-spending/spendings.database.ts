@@ -29,6 +29,7 @@ export class CreditCardSpendingsDatabase {
         });
     }
     public async create(spending: CreditCardSpending): Promise<string>{
+        console.log(spending.date);
         return this.spendingsRef.push({
             amount: spending.amount,
             creditCardId: spending.creditCardId,
