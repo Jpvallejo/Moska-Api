@@ -8,7 +8,7 @@ export class CreditCardSpendingsService {
     private db = new CreditCardSpendingsDatabase();
 
     public async create(record: CreditCardSpending): Promise<string> {
-        console.log(record.date);
+        record.date = addMonth(record.date, 0);
         return this.db.create(record);
     }
 
