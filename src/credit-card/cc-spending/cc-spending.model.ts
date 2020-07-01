@@ -18,7 +18,7 @@ export class CreditCardSpending implements Record {
     public static fromApiResponse(response: any): CreditCardSpending {
         const amount = new Money(response.amount, response.currency);
         const description = response.description;
-        const date = new Date(response.date);
+        const date = new Date(Date.parse(response.date));
         const creditCardId = response.creditCardId;
         return new CreditCardSpending(amount, description, date, creditCardId);
     }
