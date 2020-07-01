@@ -23,16 +23,20 @@ export class CreditCardSpendingsDatabase {
         return this.spendings[id];
     }
 
-    public async getByAccount(accountId: string) {
-        return _.filter(this.spendings, (spending) => {
-            return spending.creditCardId === accountId;
-        });
+    public async getByAccount(accountId: string): Promise<CreditCardSpendings> {
+        const filtered = Object.keys(this.spendings).reduce((toFilter: CreditCardSpendings, key) => {
+            if (this.spendings[key].creditCardId == accountId) toFilter[key] = this.spendings[key];
+            return toFilter;
+        }, {});
+        return filtered;
     }
     public async create(spending: CreditCardSpending): Promise<string>{
         try{
             const dateString = spending.date.toLocaleDateString();
+
             return this.spendingsRef.push({
-                amount: spending.amount,
+                amount: spending.amount.toDecimal(),
+                currency: spending.amount.currency,
                 creditCardId: spending.creditCardId,
                 description: spending.description,
                 date: dateString

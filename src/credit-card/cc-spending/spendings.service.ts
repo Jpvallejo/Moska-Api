@@ -13,14 +13,13 @@ export class CreditCardSpendingsService {
 
     public async createWithPayments(record: any, payments: number) {
         const spending = CreditCardSpending.fromApiResponse(record);
+        const rawDescription = spending.description
         const initialDate = spending.date;
-        console.log(spending.date.getMonth());
         const amount = spending.amount.divide(payments);
         for(let i = 0; i < payments; i++){
             spending.date = addMonth(initialDate, i);
-            console.log(spending.date);
             spending.amount = amount;
-            spending.description = spending.description + ` (${i+1}/${payments})`;
+            spending.description = rawDescription + ` (${i+1}/${payments})`;
             this.db.create(spending);
         }
     }
@@ -39,5 +38,9 @@ export class CreditCardSpendingsService {
 
     public async get(id:string): Promise<CreditCardSpending> {
         return this.db.getById(id);
+    }
+    
+    public async getByAccount(accountId:string): Promise<CreditCardSpendings> {
+        return this.db.getByAccount(accountId);
     }
 }

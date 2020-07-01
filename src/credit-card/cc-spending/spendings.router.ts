@@ -49,23 +49,23 @@ ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
 
 // // GET expenses/:accountId
 
-// expensesRouter.get("/:accountId", async (req: Request, res: Response) => {
-//     const accountId = parseInt(req.params.accountId, 10);
-//     try {
-//         const expenses: Expenses = await expensesService.findByAccount(accountId);
+ccSpendingsRouter.get("/byAccount/:accountId", async (req: Request, res: Response) => {
+    try {
+      const expenses: CreditCardSpendings = await ccSpendingsService.getByAccount(
+        req.params.accountId
+      );
 
-//         res.status(200).send(expenses);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
+      res.status(200).send(expenses);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
 
 // POST expenses/
 
 ccSpendingsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const expense: CreditCardSpending = CreditCardSpending.fromApiResponse(req.body);
-    console.log(expense);
     await ccSpendingsService.create(expense).then(id => {
       return res.sendStatus(201).send(id);
     });
