@@ -20,6 +20,7 @@ export class CreditCardSpendingsService {
             spending.date = addMonth(initialDate, i);
             console.log(spending.date);
             spending.amount = amount;
+            spending.description = spending.description + ` (${i+1}/${payments})`;
             this.db.create(spending);
         }
     }
