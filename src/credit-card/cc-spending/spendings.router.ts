@@ -64,7 +64,7 @@ ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
 
 ccSpendingsRouter.post("/", async (req: Request, res: Response) => {
   try {
-    const expense: CreditCardSpending = req.body;
+    const expense: CreditCardSpending = CreditCardSpending.fromApiResponse(req.body);
 
     await ccSpendingsService.create(expense).then(id => {
       res.sendStatus(201).send(id);
@@ -78,7 +78,7 @@ ccSpendingsRouter.post("/payments", async (req: Request, res: Response) => {
   try {
     const payments: number = req.body.payments;
 
-    await ccSpendingsService.createWithPayments(req.body.spending,payments).then(spendings => {
+    await ccSpendingsService.createWithPayments(req.body.spending, payments).then(spendings => {
       res.sendStatus(201).send(spendings);
     });
   } catch (e) {
