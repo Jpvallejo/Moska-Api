@@ -11,7 +11,6 @@ export class AuthService {
     public async getUserIdFromToken(token: string) {
         const jwtToken = process.env.JWT_SECRET_KEY ? process.env.JWT_SECRET_KEY : '';
         const decoded: any = decodeSession(jwtToken, token);
-        console.log(decoded);
         return decoded.session.id;
     }
 }

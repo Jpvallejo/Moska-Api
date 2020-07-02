@@ -19,22 +19,19 @@ export function requireJwtMiddleware(request: Request, response: Response, next:
     const header = request.header(requestHeader);
     
     if (!header) {
-        unauthorized(`Required ${requestHeader} header not found.`);
-        return;
+        return unauthorized(`Required ${requestHeader} header not found.`);
     }
 
     const decodedSession: DecodeResult = decodeSession(jwtKey, header);
     
     if (decodedSession.type === "integrity-error" || decodedSession.type === "invalid-token") {
-        unauthorized(`Failed to decode or validate authorization token. Reason: ${decodedSession.type}.`);
-        return;
+        return unauthorized(`Failed to decode or validate authorization token. Reason: ${decodedSession.type}.`);
     }
 
     const expiration: ExpirationStatus = checkExpirationStatus(decodedSession.session);
 
     if (expiration === "expired") {
-        unauthorized(`Authorization token has expired. Please create a new authorization token.`);
-        return;
+        return unauthorized(`Authorization token has expired. Please create a new authorization token.`);
     }
 
     let session: Session;

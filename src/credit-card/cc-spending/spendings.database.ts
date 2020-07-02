@@ -10,8 +10,13 @@ export class CreditCardSpendingsDatabase {
     private spendings! : CreditCardSpendings;
 
     constructor(){
+        let aa :CreditCardSpendings = {};
         this.spendingsRef.on('value', (snap) => {
-            this.spendings = snap && snap.val(); // Keep the local user object synced with the Firebase userRef 
+            snap && snap.val() && 
+            _.map(snap.val(),(val , key) => {
+                aa[key] = CreditCardSpending.fromApiResponse(val)            
+            });
+            this.spendings = aa; // Keep the local user object synced with the Firebase userRef 
         });
     }
 
@@ -23,9 +28,18 @@ export class CreditCardSpendingsDatabase {
         return this.spendings[id];
     }
 
-    public async getByAccount(accountId: string): Promise<CreditCardSpendings> {
+    public async getByAccount(accountId: string, month:number, year: number): Promise<CreditCardSpendings> {
+        console.log(month+ '/' + year);
         const filtered = Object.keys(this.spendings).reduce((toFilter: CreditCardSpendings, key) => {
-            if (this.spendings[key].creditCardId == accountId) toFilter[key] = this.spendings[key];
+            const spending = this.spendings[key];
+            console.log(spending);
+            console.log(spending.date.getMonth());
+            console.log(spending.date.getFullYear());
+            if (spending.creditCardId == accountId &&
+                (spending.date.getMonth() + 1) == month &&
+                spending.date.getFullYear() == year) {
+                toFilter[key] = spending
+            };
             return toFilter;
         }, {});
         return filtered;

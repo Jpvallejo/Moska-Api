@@ -51,10 +51,12 @@ ccSpendingsRouter.get("/:id", async (req: Request, res: Response) => {
 
 ccSpendingsRouter.get("/byAccount/:accountId", async (req: Request, res: Response) => {
     try {
-      const expenses: CreditCardSpendings = await ccSpendingsService.getByAccount(
-        req.params.accountId
+      const expenses = await ccSpendingsService.getByAccount(
+        req.params.accountId,
+        req.query.month,
+        req.query.year
       );
-
+      console.log(JSON.stringify(expenses));
       res.status(200).send(expenses);
     } catch (e) {
         res.status(404).send(e.message);

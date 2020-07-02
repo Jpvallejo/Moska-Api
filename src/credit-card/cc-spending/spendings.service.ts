@@ -3,6 +3,7 @@ import { CreditCardSpendings } from "./cc-spendings.interface";
 import { CreditCardSpendingsDatabase } from "./spendings.database";
 import { addMonth } from "ts-date";
 import { Money } from "ts-money";
+import _ from "lodash";
 
 export class CreditCardSpendingsService {
     private db = new CreditCardSpendingsDatabase();
@@ -40,7 +41,20 @@ export class CreditCardSpendingsService {
         return this.db.getById(id);
     }
     
-    public async getByAccount(accountId:string): Promise<CreditCardSpendings> {
-        return this.db.getByAccount(accountId);
+    public async getByAccount(accountId:string, month:number, year:number): Promise<any> {
+        let map: any = {};
+        await this.db.getByAccount(accountId, month, year).then((spendings) => {
+            _.map(spendings, (spending, key) => {
+                map[key] =
+                    {
+                        "amount": spending.amount.toDecimal(),
+                        "description": spending.description,
+                        "date": spending.date,
+                        "creditCardId": spending.creditCardId,
+                        "currency": spending.amount.currency
+                    };
+        })
+    });
+        return map;
     }
 }
