@@ -66,6 +66,7 @@ export class CreditCardSpendingsDatabase {
     }
 
     public async remove(id: string): Promise<void> {
-        return this.spendingsRef.child(id).remove();
+        console.log(id);
+        return this.spendingsRef.child(id).remove().catch((error) => {console.log(error)});
     }
 }
