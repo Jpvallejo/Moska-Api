@@ -12,6 +12,7 @@ export class CreditCardSpendingsDatabase {
     constructor(){
         let aa :CreditCardSpendings = {};
         this.spendingsRef.on('value', (snap) => {
+            console.log('Updated');
             snap && snap.val() && 
             _.map(snap.val(),(val , key) => {
                 aa[key] = CreditCardSpending.fromApiResponse(val)            
