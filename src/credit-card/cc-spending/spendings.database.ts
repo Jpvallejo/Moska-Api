@@ -12,7 +12,7 @@ export class CreditCardSpendingsDatabase {
     constructor(){
         let aa :CreditCardSpendings = {};
         this.spendingsRef.on('value', (snap) => {
-            aa = {};
+            this.spendings = {};
             console.log('Updated');
             snap && snap.val() && 
             _.map(snap.val(),(val , key) => {
@@ -71,6 +71,6 @@ export class CreditCardSpendingsDatabase {
         console.log(id);
         return this.spendingsRef.child(id).remove().then(function() {
             console.log("Remove succeeded.")
-          }).catch((error) => {console.log(error)});
+        }).catch((error) => {console.log(error)});
     }
 }
