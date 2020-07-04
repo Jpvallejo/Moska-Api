@@ -36,6 +36,6 @@ export class AccountDatabase {
     }
 
     public async remove(id: string): Promise<void> {
-        return this.accountsRef.child(id).remove();
+        return this.accountsRef.child(id).set(null);
     }
 }

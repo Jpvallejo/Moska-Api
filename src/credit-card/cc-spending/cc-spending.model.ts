@@ -16,7 +16,6 @@ export class CreditCardSpending implements Record {
     }
 
     public static fromApiResponse(response: any): CreditCardSpending {
-        console.log(response.amount);
         const amount = Money.fromDecimal(response.amount, response.currency);
         const description = response.description;
         const date = new Date(Date.parse(response.date));

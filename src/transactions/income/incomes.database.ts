@@ -36,6 +36,6 @@ export class IncomesDatabase {
     }
 
     public async remove(id: string): Promise<void> {
-        return this.incomesRef.child(id).remove();
+        return this.incomesRef.child(id).set(null);
     }
 }
