@@ -1,4 +1,4 @@
-import { Income } from "./income.interface";
+import { Income } from "./income.model";
 
 export interface Incomes {
     [key:string] : Income;
