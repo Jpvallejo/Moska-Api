@@ -2,12 +2,14 @@ import { IncomesService } from "./incomes.service";
 import express, {Request, Response} from "express";
 import { Income } from "./income.model";
 import { Incomes } from "./incomes.interface"
+import { AccountService } from "../../account/moskaAccount.service";
 
 /**
  * Router Definition
  */
 export const incomesRouter = express.Router();
-const incomesService = new IncomesService
+const incomesService = new IncomesService();
+const accountService = new AccountService();
 /**
  * Controller Definitions
  */
@@ -58,9 +60,10 @@ incomesRouter.post("/", async (req: Request, res: Response) => {
     try {
         const income: Income = Income.fromApiResponse(req.body);
 
-        await incomesService.create(income);
-
-        res.sendStatus(201);
+        await incomesService.create(income).then( async (id) => {
+            await accountService.updateBalance(income.accountId, income.amount, "add");
+            res.sendStatus(201).send(id);
+        });
     } catch (e) {
         res.status(404).send(e.message);
     }

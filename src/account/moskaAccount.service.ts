@@ -1,6 +1,7 @@
 import { AccountDatabase } from "./moskaAccount.database";
 import { MoskaAccount, MoskaAccounts } from "./moskaAccount.model";
 import _ from "lodash";
+import { Money } from "ts-money";
 
 export class AccountService {
     private db = new AccountDatabase();
@@ -11,6 +12,10 @@ export class AccountService {
 
     public async update(id:string, account: MoskaAccount): Promise<void> {
         return this.db.update(id, account);
+    }
+
+    public async updateBalance(id: string, amount: Money, operation: "add" | "sub" ) {
+        return this.db.updateBalance(id,amount,operation);
     }
 
     public async remove(id: string): Promise<void> {

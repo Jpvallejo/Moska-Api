@@ -6,6 +6,7 @@ import express, { Request, Response } from "express";
 import { Expenses } from "./expenses.interface";
 import { Expense } from "./expense.model";
 import { ExpensesService } from "./expenses.service";
+import { AccountService } from "../../account/moskaAccount.service";
 
 /**
  * Router Definition
@@ -16,6 +17,7 @@ export const expensesRouter = express.Router();
  *  Service Definition
  */
 const expensesService = new ExpensesService();
+const accountService = new AccountService();
 
 /**
  * Controller Definitions
@@ -81,7 +83,8 @@ expensesRouter.post("/", async (req: Request, res: Response) => {
     try {
         const expense: Expense = Expense.fromApiResponse(req.body);
 
-        await expensesService.create(expense).then( (id) => {
+        await expensesService.create(expense).then( async (id) => {
+            await accountService.updateBalance(expense.accountId, expense.amount, "sub");
             res.sendStatus(201).send(id);
         });
 

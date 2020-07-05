@@ -1,5 +1,6 @@
 import firebase from "firebase-admin";
 import { MoskaAccounts, MoskaAccount } from "./moskaAccount.model";
+import { Money } from "ts-money";
 
 export class AccountDatabase {
     private db = firebase.database();
@@ -37,7 +38,23 @@ export class AccountDatabase {
     }
 
     public async update(id:string, account:MoskaAccount): Promise<void> {
-        return this.accountsRef.child(id).set(account);
+        return this.accountsRef.child(id).set({
+            currentBalance: account.currentBalance.toDecimal(),
+            currency: account.currentBalance.currency,
+            userId: account.userId,
+            name: account.name,
+        });
+    }
+
+    public async updateBalance(id:string, amount:Money, operation: "add" | "sub") {
+        const account = this.accounts[id];
+        const newAmount = operation === "add" ? account.currentBalance.add(amount) : account.currentBalance.subtract(amount);
+        return this.accountsRef.child(id).set({
+            currentBalance: newAmount.toDecimal(),
+            currency: account.currentBalance.currency,
+            userId: account.userId,
+            name: account.name,
+        });
     }
 
     public async remove(id: string): Promise<void> {
