@@ -1,5 +1,6 @@
 import { AccountDatabase } from "./moskaAccount.database";
 import { MoskaAccount, MoskaAccounts } from "./moskaAccount.model";
+import _ from "lodash";
 
 export class AccountService {
     private db = new AccountDatabase();
@@ -24,7 +25,19 @@ export class AccountService {
         return this.db.getById(id);
     }
 
-    public async getByUser(userId: string): Promise<MoskaAccounts> {
-        return this.db.getByUser(userId);
+    public async getByUser(userId: string): Promise<any> {
+        let map: any = {};
+        await this.db.getByUser(userId).then((accounts) => {
+            _.map(accounts, (account, key) => {
+                map[key] =
+                    {
+                        "currentBalance": account.currentBalance.toDecimal(),
+                        "name": account.name,
+                        "userId": account.userId,
+                        "currency": account.currentBalance.currency
+                    };
+        })
+        });
+        return map;
     }
 }
