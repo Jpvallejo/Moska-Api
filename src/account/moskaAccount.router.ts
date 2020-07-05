@@ -27,7 +27,10 @@ const authService = new AuthService();
 
 accountsRouter.get("/", async (req: Request, res: Response) => {
     try {
-        const accounts: MoskaAccounts = await accountsService.getAll();
+        const authHeader = req.header('X-JWT-Token');
+        const authToken: string =  authHeader ? authHeader : '' ;
+        const userId = await authService.getUserIdFromToken(authToken);
+        const accounts = await accountsService.getByUser(userId);
 
         res.status(200).send(accounts);
     } catch (e) {
