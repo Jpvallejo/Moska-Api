@@ -15,7 +15,7 @@ export class MoskaAccount {
     }
 
     public static fromApiRequest(request: any, userId: string) {
-        const balance = new Money(request.balance, request.currency);
+        const balance = Money.fromDecimal(request.currentBalance, request.currency);
         const name = request.name;
         return new MoskaAccount(balance,name, balance.currency ,userId);
     }

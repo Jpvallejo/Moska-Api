@@ -28,7 +28,12 @@ export class AccountDatabase {
         return filtered;
     }
     public async create(account: MoskaAccount): Promise<string>{
-        return this.accountsRef.push(account).toString();
+        return this.accountsRef.push({
+            currentBalance: account.currentBalance.toDecimal(),
+            currency: account.currentBalance.currency,
+            userId: account.userId,
+            name: account.name,
+        }).toString();
     }
 
     public async update(id:string, account:MoskaAccount): Promise<void> {
