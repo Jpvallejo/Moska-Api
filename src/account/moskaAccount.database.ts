@@ -1,6 +1,7 @@
 import firebase from "firebase-admin";
 import { MoskaAccounts, MoskaAccount } from "./moskaAccount.model";
 import { Money } from "ts-money";
+import _ from "lodash";
 
 export class AccountDatabase {
     private db = firebase.database();
@@ -8,8 +9,13 @@ export class AccountDatabase {
     private accounts! : MoskaAccounts;
     
     constructor(){
-        this.accountsRef.on('value', (snap) => {
-            this.accounts = snap && snap.val(); // Keep the local user object synced with the Firebase userRef 
+        let aa :MoskaAccounts = {};
+        this.accountsRef.on('value' || 'child_removed', (snap) => {
+            snap && snap.val() && 
+            _.map(snap.val(),(val , key) => {
+                aa[key] = MoskaAccount.fromApiResponse(val);            
+            });
+            this.accounts = aa; // Keep the local user object synced with the Firebase userRef 
         });
     }
 
@@ -48,6 +54,8 @@ export class AccountDatabase {
 
     public async updateBalance(id:string, amount:Money, operation: "add" | "sub") {
         const account = this.accounts[id];
+        console.log(account);
+
         const newAmount = operation === "add" ? account.currentBalance.add(amount) : account.currentBalance.subtract(amount);
         return this.accountsRef.child(id).set({
             currentBalance: newAmount.toDecimal(),
