@@ -56,7 +56,7 @@ incomesRouter.get("/byAccount/:accountId", async (req: Request, res: Response) =
 
 incomesRouter.post("/", async (req: Request, res: Response) => {
     try {
-        const income: Income = req.body;
+        const income: Income = Income.fromApiResponse(req.body);
 
         await incomesService.create(income);
 

@@ -79,7 +79,7 @@ expensesRouter.get("/byAccount/:accountId", async (req: Request, res: Response) 
 
 expensesRouter.post("/", async (req: Request, res: Response) => {
     try {
-        const expense: Expense = req.body;
+        const expense: Expense = Expense.fromApiResponse(req.body);
 
         await expensesService.create(expense).then( (id) => {
             res.sendStatus(201).send(id);
