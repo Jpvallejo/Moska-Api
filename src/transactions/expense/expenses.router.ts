@@ -4,7 +4,7 @@
 
 import express, { Request, Response } from "express";
 import { Expenses } from "./expenses.interface";
-import { Expense } from "./expense.interface";
+import { Expense } from "./expense.model";
 import { ExpensesService } from "./expenses.service";
 
 /**
@@ -48,16 +48,19 @@ expensesRouter.get("/:id", async (req: Request, res: Response) => {
 
 // // GET expenses/:accountId
 
-// expensesRouter.get("/:accountId", async (req: Request, res: Response) => {
-//     const accountId = parseInt(req.params.accountId, 10);
-//     try {
-//         const expenses: Expenses = await expensesService.findByAccount(accountId);
-
-//         res.status(200).send(expenses);
-//     } catch (e) {
-//         res.status(404).send(e.message);
-//     }
-// });
+expensesRouter.get("/byAccount/:accountId", async (req: Request, res: Response) => {
+    try {
+      const records = await expensesService.getByAccount(
+        req.params.accountId,
+        req.query.month,
+        req.query.year
+      );
+      console.log(JSON.stringify(records));
+      res.status(200).send(records);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
 
 // // GET expenses/:userId
 

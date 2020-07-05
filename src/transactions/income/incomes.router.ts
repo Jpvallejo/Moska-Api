@@ -1,6 +1,6 @@
 import { IncomesService } from "./incomes.service";
 import express, {Request, Response} from "express";
-import { Income } from "./income.interface";
+import { Income } from "./income.model";
 import { Incomes } from "./incomes.interface"
 
 /**
@@ -31,6 +31,22 @@ incomesRouter.get("/:id", async (req: Request, res: Response) => {
         const income: Income = await incomesService.get(req.params.id);
 
         res.status(200).send(income);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
+// // GET incomes/:accountId
+
+incomesRouter.get("/byAccount/:accountId", async (req: Request, res: Response) => {
+    try {
+      const records = await incomesService.getByAccount(
+        req.params.accountId,
+        req.query.month,
+        req.query.year
+      );
+      console.log(JSON.stringify(records));
+      res.status(200).send(records);
     } catch (e) {
         res.status(404).send(e.message);
     }
