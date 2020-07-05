@@ -87,7 +87,12 @@ incomesRouter.put("/:id", async (req: Request, res: Response) => {
 
 incomesRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
-        await incomesService.remove(req.params.id);
+        await incomesService.get(req.params.id).then(async (income) => {
+            await incomesService.remove(req.params.id).then( async (id) => {
+                await accountService.updateBalance(income.accountId, income.amount, "add");
+                res.sendStatus(201).send(id);
+            });;
+        });
 
         res.sendStatus(200);
     } catch (e) {
