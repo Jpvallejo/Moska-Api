@@ -114,7 +114,7 @@ expensesRouter.delete("/:id", async (req: Request, res: Response) => {
         await expensesService.get(req.params.id).then(async (expense) => {
             await expensesService.remove(req.params.id).then( async (id) => {
                 await accountService.updateBalance(expense.accountId, expense.amount, "add");
-                res.sendStatus(201).send(id);
+                res.sendStatus(201);
             });
         });
         
