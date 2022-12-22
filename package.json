@@ -19,7 +19,7 @@
     "firebase": "^7.8.2",
     "firebase-admin": "^8.9.2",
     "helmet": "^3.21.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.15",
     "ts-date": "^3.0.1",
     "ts-money": "^0.4.6",
